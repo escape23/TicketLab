@@ -1,3 +1,90 @@
-@host = http://localhost:5032
+# Manual API requests. Open in VS Code (REST Client extension) and click "Send Request".
+# Start the API first: dotnet run --project backend/TicketLab.Api
 
-# Requests will be added in phase 2 (API).
+@host = http://localhost:5032
+# 1 = Anna (User), 2 = Ola (Developer), 3 = Kari (Admin)
+@userId = 1
+@ticketId = 1
+
+### Users
+GET {{host}}/api/users
+
+### All tickets
+GET {{host}}/api/tickets
+
+### Tickets filtered by status
+GET {{host}}/api/tickets?status=New
+
+### One ticket (with comments)
+GET {{host}}/api/tickets/{{ticketId}}
+
+### Create a ticket -> 201
+POST {{host}}/api/tickets
+Content-Type: application/json
+X-User-Id: {{userId}}
+
+{
+  "title": "Printer on 2nd floor does not work",
+  "description": "It shows 'paper jam' but there is no paper stuck.",
+  "priority": "Medium",
+  "category": "Hardware"
+}
+
+### Change status -> 200
+PATCH {{host}}/api/tickets/{{ticketId}}/status
+Content-Type: application/json
+X-User-Id: 2
+
+{ "status": "InProgress" }
+
+### Change priority -> 200
+PATCH {{host}}/api/tickets/{{ticketId}}/priority
+Content-Type: application/json
+X-User-Id: 2
+
+{ "priority": "High" }
+
+### Add comment -> 201
+POST {{host}}/api/tickets/{{ticketId}}/comments
+Content-Type: application/json
+X-User-Id: 2
+
+{ "text": "Looking into it now." }
+
+### History
+GET {{host}}/api/tickets/{{ticketId}}/history
+
+
+# ------------------------------------------------------------
+# Negative examples (what SHOULD fail)
+# ------------------------------------------------------------
+
+### Empty title -> 400
+POST {{host}}/api/tickets
+Content-Type: application/json
+X-User-Id: {{userId}}
+
+{ "title": "", "priority": "Low", "category": "Other" }
+
+### Unknown priority -> 400
+POST {{host}}/api/tickets
+Content-Type: application/json
+X-User-Id: {{userId}}
+
+{ "title": "Test", "priority": "Banana", "category": "Other" }
+
+### No X-User-Id header -> 401
+POST {{host}}/api/tickets
+Content-Type: application/json
+
+{ "title": "Test", "priority": "Low", "category": "Other" }
+
+### Ticket that does not exist -> 404
+GET {{host}}/api/tickets/99999
+
+### Invalid status transition (New -> Resolved) -> 409
+PATCH {{host}}/api/tickets/{{ticketId}}/status
+Content-Type: application/json
+X-User-Id: 2
+
+{ "status": "Resolved" }
