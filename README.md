@@ -28,6 +28,19 @@ docs/       Roadmap, test plans, bug reports, reflections
 
 ## Getting started
 
-_Will be filled in as the backend and frontend are added._
+Requirements: .NET 10 SDK, SQL Server Express (`.\SQLEXPRESS`), Node.js LTS.
+
+```bash
+# Restore the local dotnet-ef tool (once)
+dotnet tool restore
+
+# Create / update the database
+dotnet ef database update --project backend/TicketLab.Api
+
+# Run the API (http://localhost:5032)
+dotnet run --project backend/TicketLab.Api
+```
+
+The generated SQL for each migration is kept in `docs/sql/` for reference.
 
 See [docs/roadmap.md](docs/roadmap.md) for the plan and how it maps to the competence goals.

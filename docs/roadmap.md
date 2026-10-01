@@ -5,8 +5,8 @@ Already approved: 8, 10, 14, 15, 18, 20.
 
 | Phase | What                                                      | Mål             | Status |
 |-------|-----------------------------------------------------------|-----------------|--------|
-| 0     | Setup: repo, structure, README                            | (14)            | 🟡     |
-| 1     | Database: EF Core model, migrations, seed data            | 5               | ⬜     |
+| 0     | Setup: repo, structure, README                            | (14)            | ✅     |
+| 1     | Database: EF Core model, migrations, seed data            | 5               | ✅     |
 | 2     | Backend API: tickets, status, comments, history           | 5               | ⬜     |
 | 3     | Vue frontend: list, form, ticket page                     | 19              | ⬜     |
 | —     | **MVP done**                                              |                 |        |
