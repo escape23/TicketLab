@@ -8,7 +8,7 @@ Already approved: 8, 10, 14, 15, 18, 20.
 | 0     | Setup: repo, structure, README                            | (14)            | ✅     |
 | 1     | Database: EF Core model, migrations, seed data            | 5               | ✅     |
 | 2     | Backend API: tickets, status, comments, history           | 5               | ✅     |
-| 3     | Vue frontend: list, form, ticket page                     | 19              | ⬜     |
+| 3     | Vue frontend: list, form, ticket page                     | 19              | ✅     |
 | —     | **MVP done**                                              |                 |        |
 | 4     | Testing: unit, integration, API, E2E, user test           | **16**, 3       | ⬜     |
 | 5     | CI + Cron: GitHub Actions, scheduled workflow             | **16**          | ⬜     |

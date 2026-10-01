@@ -21,6 +21,9 @@ public static class TicketRules
     public static bool CanChangeStatus(TicketStatus from, TicketStatus to) =>
         AllowedTransitions[from].Contains(to);
 
+    public static TicketStatus[] AllowedNextStatuses(TicketStatus from) =>
+        AllowedTransitions[from];
+
     // A closed ticket is read-only: no priority changes, no new comments.
     public static bool IsReadOnly(TicketStatus status) =>
         status == TicketStatus.Closed;

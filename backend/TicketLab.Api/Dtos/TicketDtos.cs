@@ -67,7 +67,12 @@ public record TicketDetailsDto(
     string? AssignedTo,
     DateTime CreatedAt,
     DateTime UpdatedAt,
-    List<CommentDto> Comments);
+    List<CommentDto> Comments)
+{
+    // Lets the frontend show only valid status buttons,
+    // so the transition rules live in one place (TicketRules).
+    public TicketStatus[] AllowedStatuses { get; init; } = [];
+}
 
 public record CommentDto(int Id, string Text, string Author, DateTime CreatedAt);
 

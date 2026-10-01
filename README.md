@@ -41,6 +41,14 @@ dotnet ef database update --project backend/TicketLab.Api
 dotnet run --project backend/TicketLab.Api
 ```
 
+In a second terminal:
+
+```bash
+cd frontend
+npm install     # once
+npm run dev     # open http://localhost:5173
+```
+
 The generated SQL for each migration is kept in `docs/sql/` for reference.
 
 See [docs/roadmap.md](docs/roadmap.md) for the plan and how it maps to the competence goals.

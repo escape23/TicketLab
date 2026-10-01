@@ -185,8 +185,9 @@ public class TicketsController(TicketLabDbContext db) : ControllerBase
             ChangedAt = DateTime.UtcNow
         });
 
-    private Task<TicketDetailsDto?> LoadDetailsAsync(int id) =>
-        db.Tickets
+    private async Task<TicketDetailsDto?> LoadDetailsAsync(int id)
+    {
+        var ticket = await db.Tickets
             .Where(t => t.Id == id)
             .Select(t => new TicketDetailsDto(
                 t.Id, t.Title, t.Description, t.Priority, t.Category, t.Status,
@@ -198,4 +199,10 @@ public class TicketsController(TicketLabDbContext db) : ControllerBase
                     .Select(c => new CommentDto(c.Id, c.Text, c.Author.Name, c.CreatedAt))
                     .ToList()))
             .FirstOrDefaultAsync();
+
+        // Set after the query: TicketRules is plain C# that EF Core cannot translate to SQL.
+        return ticket is null
+            ? null
+            : ticket with { AllowedStatuses = TicketRules.AllowedNextStatuses(ticket.Status) };
+    }
 }
